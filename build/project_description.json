@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "blink",
-    "project_version":    "1",
+    "project_version":    "343fbde",
     "project_path":       "/data/workspace/frank_esp32_v2",
     "idf_path":           "/opt/esp-idf",
     "build_dir":          "/data/workspace/frank_esp32_v2/build",
