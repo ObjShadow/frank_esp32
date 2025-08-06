@@ -1,2 +1,3 @@
 cmake-build-debug-esp32
 build
+managed_components
