@@ -1,0 +1,38 @@
+syntax = "proto2";
+
+enum MessageType {
+    MESSAGE_TYPE_AUDIO = 0;
+    MESSAGE_TYPE_TEXT = 1;
+    MESSAGE_TYPE_COMMAND = 2;
+}
+
+message Audio {
+    bytes data = 1;
+    uint32 sample_rate = 2;
+    uint32 channels = 3;
+}
+
+message Text {
+    string text = 1;
+}
+
+enum Commands {
+    COMMANDS_CLEAR_HISTORY = 1;
+}
+
+message Command {
+    Commands command = 1;
+}
+
+message Packet {
+    message Head {
+        int32 version = 1;
+        MessageType type = 2;
+    }
+    Head head = 1;
+    oneof body {
+        Audio audio = 2;
+        Text text = 3;
+        Command command = 4;
+    }
+}
