@@ -13,9 +13,20 @@ dependencies:
     source:
       type: idf
     version: 5.4.0
+  nikas-belogolov/nanopb:
+    component_hash: f87bec16ffb47d5ceb557b7f13acb83cad95046ab155d1af33e488d1b048fddc
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.0.0
 direct_dependencies:
 - espressif/led_strip
 - idf
-manifest_hash: 66f0d1a5019d1277f845b61ed7ecd51b2f8a000d6fb5b32b40131928bf590fba
+- nikas-belogolov/nanopb
+manifest_hash: 7506b7215231e5c51e7d22585198329b7b38cc30f713123b4615f1eb764ba2b9
 target: esp32s3
 version: 2.0.0
