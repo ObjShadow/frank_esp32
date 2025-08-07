@@ -1,2 +1,18 @@
-idf_component_register(SRCS "main.c"
-                       INCLUDE_DIRS ".")
+idf_component_register(SRCS
+        "main.c"
+        "display.c"
+        "hardware.c"
+        "network.c"
+        "network_provider_cellular.c"
+        "network_provider_wifi.c"
+        "proto/packet.pb-c.c"
+        "display.h"
+        "hardware.h"
+        "network.h"
+        "network_provider_cellular.h"
+        "network_provider_wifi.h"
+        "proto/packet.pb-c.h"
+                       INCLUDE_DIRS
+        "."
+        "./proto"
+)

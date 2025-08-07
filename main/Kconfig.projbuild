@@ -35,4 +35,32 @@ menu "Firefly Chatbot Configuration"
         int "Default stack depth of tasks"
         default 10240
 
+    config MAX_PACKET_VERSION
+        int "Maximum supported packet version"
+        default 1
+
+    config AUDIO_RECORD_SAMPLE_RATE
+        int "Sample rate used when recording audio"
+        default 8000
+
+    config AUDIO_PLAY_SAMPLE_RATE
+        int "Sample rate used when playing audio"
+        default 32000
+
+    config AUDIO_RECORD_CHANNELS
+        int "Record channels"
+        default 1
+
+    config AUDIO_PLAY_CHANNELS
+        int "Play channels"
+        default 1
+
+    config AUDIO_RECORD_BPS
+        int "Bits per sample used when recording audio"
+        default 16
+
+    config AUDIO_PLAY_BPS
+        int "Bits per sample used when playing audio"
+        default 16
+
 endmenu
