@@ -7,13 +7,13 @@ enum MessageType {
 }
 
 message Audio {
-    bytes data = 1;
-    uint32 sample_rate = 2;
-    uint32 channels = 3;
+    required bytes data = 1;
+    required uint32 sample_rate = 2;
+    required uint32 channels = 3;
 }
 
 message Text {
-    string text = 1;
+    required string text = 1;
 }
 
 enum Commands {
@@ -21,15 +21,24 @@ enum Commands {
 }
 
 message Command {
-    Commands command = 1;
+    required Commands command = 1;
+}
+
+message DeviceInfo {
+    optional int32 display_height = 1;
+    optional int32 display_width = 2;
+    optional uint32 play_sample_rate = 3;
+    optional uint32 play_bps = 4;
+    optional uint32 play_channels = 5;
 }
 
 message Packet {
     message Head {
-        int32 version = 1;
-        MessageType type = 2;
+        required int32 version = 1;
+        required MessageType type = 2;
+        optional DeviceInfo device_info = 3;
     }
-    Head head = 1;
+    required Head head = 1;
     oneof body {
         Audio audio = 2;
         Text text = 3;
