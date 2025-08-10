@@ -1,19 +1,17 @@
-//
-// Created by lsk on 8/10/25.
-//
 /*
 *---------------------------------------------------------------
-*                        Lvgl Font Tool                         
-*                                                               
-* 注:使用unicode编码                                              
-* 注:本字体文件由Lvgl Font Tool V0.4 生成                          
-* 作者:阿里(qq:617622104)                                         
+*                        Lvgl Font Tool
+*
+* 注:使用unicode编码
+* 注:本字体文件由Lvgl Font Tool V0.4 生成
+* 作者:阿里(qq:617622104)
 *---------------------------------------------------------------
 */
-
-
+#include "esp_partition.h"
 #include "lvgl.h"
-#include "esp_flash.h"
+#include "esp_log.h"
+
+#define TAG "lxwk font"
 
 typedef struct{
     uint16_t min;
@@ -40,18 +38,33 @@ static x_header_t __g_xbf_hd = {
     .bpp = 2,
 };
 
+static uint8_t __g_font_buf[144];//如bin文件存在SPI FLASH可使用此buff
 
-static uint8_t __g_font_buf[95];//如bin文件存在SPI FLASH可使用此buff
-
+esp_partition_t* partition_res=NULL;
 
 static uint8_t *__user_font_getdata(int offset, int size){
     //如字模保存在SPI FLASH, SPIFLASH_Read(__g_font_buf,offset,size);
     //如字模已加载到SDRAM,直接返回偏移地址即可如:return (uint8_t*)(sdram_fontddr+offset);
-    esp_flash_read(esp_flash_default_chip, 0x300000+offset, __g_font_buf, size);
+    static uint8_t first_in = 1;
+    if(first_in==1)
+    {
+        partition_res=esp_partition_find_first(0x01,0x40,NULL);//这个函数第一个参数是我们分区表的第四行的，第二列的参数，第二个是第三列的值
+        first_in=0;
+        if (partition_res == NULL)
+        {
+            ESP_LOGI(TAG,"Failed to open file for reading\n");
+            return NULL;
+        }else{
+             ESP_LOGI(TAG,"Successfully open file for reading\n");
+        }
+    }
+    esp_err_t res=esp_partition_read(partition_res,offset,__g_font_buf,size);//读取数据
+    if(res!=ESP_OK)
+    {
+        ESP_LOGI(TAG,"Failed to reading\n");
+    }
     return __g_font_buf;
 }
-
-
 static const uint8_t * __user_font_get_bitmap(const lv_font_t * font, uint32_t unicode_letter) {
     if( unicode_letter>__g_xbf_hd.max || unicode_letter<__g_xbf_hd.min ) {
         return NULL;
@@ -65,8 +78,6 @@ static const uint8_t * __user_font_get_bitmap(const lv_font_t * font, uint32_t u
     }
     return NULL;
 }
-
-
 static bool __user_font_get_glyph_dsc(const lv_font_t * font, lv_font_glyph_dsc_t * dsc_out, uint32_t unicode_letter, uint32_t unicode_letter_next) {
     if( unicode_letter>__g_xbf_hd.max || unicode_letter<__g_xbf_hd.min ) {
         return NULL;
@@ -85,15 +96,12 @@ static bool __user_font_get_glyph_dsc(const lv_font_t * font, lv_font_glyph_dsc_
     }
     return false;
 }
-
-
-//微软雅黑,Regular,12
-//字模高度：19
+//FangSong_GB2312,,-1
+//字模高度：18
 //XBF字体,外部bin文件
-lv_font_t lxwk = {
+lv_font_t myFont = {
     .get_glyph_bitmap = __user_font_get_bitmap,
     .get_glyph_dsc = __user_font_get_glyph_dsc,
-    .line_height = 19,
+    .line_height = 18,
     .base_line = 0,
 };
-

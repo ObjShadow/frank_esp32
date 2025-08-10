@@ -28,4 +28,5 @@ PRIV_REQUIRES
         tcp_transport
         esp_netif
         log
+        protobuf-c
 )

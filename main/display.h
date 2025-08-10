@@ -17,6 +17,24 @@
  * These modules should only provide a wrap for GPIO and bus operations. Their logic should be implemented in main.c .
  */
 
+/**
+  *     OLED FUNCTIONS
+*/
 
+/**
+ * Show text on the OLED
+ */
+void display_oled_init();
+
+/**
+ * Clear the OLED
+ */
+void display_oled_clear();
+
+/**
+ * Show text on the OLED
+ * @param text The text to be shown
+ */
+void display_oled_show_text(char* text);
 
 #endif //DISPLAY_H
