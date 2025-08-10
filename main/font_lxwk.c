@@ -99,7 +99,7 @@ static bool __user_font_get_glyph_dsc(const lv_font_t * font, lv_font_glyph_dsc_
 //FangSong_GB2312,,-1
 //字模高度：18
 //XBF字体,外部bin文件
-lv_font_t myFont = {
+lv_font_t font_lxwk = {
     .get_glyph_bitmap = __user_font_get_bitmap,
     .get_glyph_dsc = __user_font_get_glyph_dsc,
     .line_height = 18,
