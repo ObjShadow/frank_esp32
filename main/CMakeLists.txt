@@ -1,4 +1,5 @@
-idf_component_register(SRCS
+idf_component_register(
+SRCS
         "main.c"
         "display.c"
         "hardware.c"
@@ -12,7 +13,19 @@ idf_component_register(SRCS
         "network_provider_cellular.h"
         "network_provider_wifi.h"
         "proto/packet.pb-c.h"
-                       INCLUDE_DIRS
+        "font_lxwk.c"
+INCLUDE_DIRS
         "."
         "./proto"
+PRIV_REQUIRES
+        spi_flash
+        esp_wifi
+        nvs_flash
+        esp_driver_gpio
+        esp_driver_i2s
+        esp_driver_i2c
+        esp_lcd
+        tcp_transport
+        esp_netif
+        log
 )
